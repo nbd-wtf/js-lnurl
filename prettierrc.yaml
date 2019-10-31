@@ -1,0 +1,10 @@
+arrowParens: avoid
+bracketSpacing: false
+insertPragma: true
+jsxBracketSameLine: false
+printWidth: 80
+proseWrap: preserve
+semi: false
+singleQuote: true
+trailingComma: none
+useTabs: false

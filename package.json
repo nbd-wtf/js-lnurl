@@ -1,4 +1,10 @@
 {
+  "name": "js-lnurl",
+  "version": "0.0.1",
+  "description": "tools for doing lnurl stuff in a lightning wallet.",
+  "repository": "https://github.com/fiatjaf/js-lnurl",
+  "main": "lib/index.js",
+  "keywords": ["lightning", "lightning-network", "network", "wallet", "lnurl"],
   "dependencies": {
     "@types/bech32": "^1.1.1",
     "axios": "0.19.0",
