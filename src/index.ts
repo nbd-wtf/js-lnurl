@@ -15,7 +15,7 @@ import {
 
 export {findlnurl, randomHex} from './helpers'
 
-export async function handle(
+export async function getParams(
   lnurl: string
 ): Promise<
   | LNURLResponse
