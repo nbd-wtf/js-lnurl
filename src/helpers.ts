@@ -1,7 +1,7 @@
 /** @format */
 
 export function findlnurl(bodyOfText: string): string | null {
-  let res = /(lnurl{1}[a-z0-9]+)/.exec(bodyOfText)
+  let res = /(lnurl{1}[a-z0-9]+)/.exec(bodyOfText.toLowerCase())
   if (res) {
     return res[1]
   }
