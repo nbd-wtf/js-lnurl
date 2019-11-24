@@ -38,11 +38,11 @@ export interface LNURLPayParams {
 
 export interface LNURLPayResult {
   pr: string
-  successAction: SuccessAction
+  successAction: LNURLPaySuccessAction
   routes: object[][]
 }
 
-interface SuccessAction {
+export interface LNURLPaySuccessAction {
   tag: string
   description: string
   data: string

@@ -10,10 +10,20 @@ import {
   LNURLChannelParams,
   LNURLWithdrawParams,
   LNURLAuthParams,
-  LNURLPayParams
+  LNURLPayParams,
 } from './types'
 
-export {findlnurl, randomHex} from './helpers'
+export {
+  LNURLResponse,
+  LNURLChannelParams,
+  LNURLWithdrawParams,
+  LNURLAuthParams,
+  LNURLPayParams,
+  LNURLPayResult,
+  LNURLPaySuccessAction
+} from './types'
+
+export {findlnurl, randomHex, getDomain} from './helpers'
 
 export async function getParams(
   lnurl: string
