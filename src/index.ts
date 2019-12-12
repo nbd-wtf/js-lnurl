@@ -10,7 +10,7 @@ import {
   LNURLChannelParams,
   LNURLWithdrawParams,
   LNURLAuthParams,
-  LNURLPayParams,
+  LNURLPayParams
 } from './types'
 
 export {
@@ -23,7 +23,7 @@ export {
   LNURLPaySuccessAction
 } from './types'
 
-export {findlnurl, randomHex, getDomain} from './helpers'
+export {findlnurl, randomHex, getDomain, decipherAES} from './helpers'
 
 export async function getParams(
   lnurl: string

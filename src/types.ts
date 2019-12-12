@@ -38,12 +38,15 @@ export interface LNURLPayParams {
 
 export interface LNURLPayResult {
   pr: string
-  successAction: LNURLPaySuccessAction
+  successAction: LNURLPaySuccessAction | null
   routes: object[][]
 }
 
 export interface LNURLPaySuccessAction {
   tag: string
-  description: string
-  data: string
+  description: string | null
+  url: string | null
+  message: string | null
+  ciphertext: string | null
+  iv: string | null
 }
