@@ -5,7 +5,7 @@ import Base64 from 'base64-js'
 import {LNURLPaySuccessAction} from './types'
 
 export function findlnurl(bodyOfText: string): string | null {
-  let res = /(lnurl{1}[a-z0-9]+)/.exec(bodyOfText.toLowerCase())
+  let res = /,*?((lnurl)([0-9]{1,}[a-z0-9]+){1})/.exec(bodyOfText.toLowerCase())
   if (res) {
     return res[1]
   }
