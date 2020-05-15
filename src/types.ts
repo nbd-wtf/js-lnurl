@@ -39,6 +39,7 @@ export interface LNURLPayParams {
 export interface LNURLPayResult {
   pr: string
   successAction: LNURLPaySuccessAction | null
+  disposable: boolean | null
   routes: object[][]
 }
 
