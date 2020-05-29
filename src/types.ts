@@ -3,11 +3,14 @@
 export interface LNURLResponse {
   status: string
   reason: string
+  domain: string
+  url: string
 }
 
 export interface LNURLChannelParams {
   tag: string
   callback: string
+  domain: string
   k1: string
   uri: string
 }
@@ -16,6 +19,7 @@ export interface LNURLWithdrawParams {
   tag: string
   k1: string
   callback: string
+  domain: string
   minWithdrawable: number
   maxWithdrawable: number
   defaultDescription: string
@@ -25,11 +29,13 @@ export interface LNURLAuthParams {
   tag: string
   k1: string
   callback: string
+  domain: string
 }
 
 export interface LNURLPayParams {
   tag: string
   callback: string
+  domain: string
   minSendable: number
   maxSendable: number
   metadata: string

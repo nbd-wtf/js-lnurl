@@ -1,7 +1,7 @@
 /** @format */
 
 import bech32 from 'bech32'
-import axios from 'axios'
+import fetch from 'cross-fetch'
 import qs from 'query-string'
 import {Buffer} from 'safe-buffer'
 
@@ -23,10 +23,11 @@ export {
   LNURLPaySuccessAction
 } from './types'
 
+import {findlnurl, getDomain} from './helpers'
 export {findlnurl, randomHex, getDomain, decipherAES} from './helpers'
 
 export async function getParams(
-  lnurl: string
+  lnurl: any
 ): Promise<
   | LNURLResponse
   | LNURLChannelParams
@@ -34,6 +35,12 @@ export async function getParams(
   | LNURLAuthParams
   | LNURLPayParams
 > {
+  lnurl = findlnurl(lnurl)
+
+  if (!lnurl) {
+    throw new Error('no usable lnurl string')
+  }
+
   let url = Buffer.from(
     bech32.fromWords(bech32.decode(lnurl, 1500).words)
   ).toString()
@@ -43,16 +50,22 @@ export async function getParams(
     return {
       tag: 'login',
       k1: qs.parse(spl[1]).k1 as string,
-      callback: url
+      callback: url,
+      domain: getDomain(url)
     }
   }
 
   try {
-    let r = await axios.get(url)
-    let res = r.data
+    let r = await fetch(url)
 
     if (r.status >= 300) {
-      throw res
+      throw new Error(await r.text())
+    }
+
+    let res = await r.json()
+
+    if (res.callback) {
+      res.domain = getDomain(res.callback)
     }
 
     switch (res.tag) {
@@ -60,13 +73,17 @@ export async function getParams(
         return res as LNURLWithdrawParams
         break
       case 'payRequest':
-        res.decodedMetadata = JSON.parse(res.metadata)
+        try {
+          res.decodedMetadata = JSON.parse(res.metadata)
+        } catch (err) {
+          res.decodedMetadata = []
+        }
         return res as LNURLPayParams
       case 'channelRequest':
         return res as LNURLChannelParams
       default:
         if (res.status === 'ERROR') {
-          return res as LNURLResponse
+          return {...res, domain: getDomain(url), url} as LNURLResponse
         }
 
         throw new Error('unknown tag: ' + res.tag)
@@ -74,7 +91,9 @@ export async function getParams(
   } catch (err) {
     return {
       status: 'ERROR',
-      reason: `${url} returned error: ${err.message}`
+      reason: `${url} returned error: ${err.message}`,
+      url,
+      domain: getDomain(url)
     } as LNURLResponse
   }
 }
