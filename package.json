@@ -1,6 +1,6 @@
 {
   "name": "js-lnurl",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "tools for doing lnurl stuff in a lightning wallet.",
   "repository": "https://github.com/fiatjaf/js-lnurl",
   "main": "lib/index.js",

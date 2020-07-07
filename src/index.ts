@@ -42,7 +42,7 @@ export async function getParams(
   }
 
   let url = Buffer.from(
-    bech32.fromWords(bech32.decode(lnurl, 1500).words)
+    bech32.fromWords(bech32.decode(lnurl, 20000).words)
   ).toString()
 
   let spl = url.split('?')
