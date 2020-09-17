@@ -40,6 +40,7 @@ export interface LNURLPayParams {
   maxSendable: number
   metadata: string
   decodedMetadata: string[][]
+  commentAllowed?: number
 }
 
 export interface LNURLPayResult {

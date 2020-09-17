@@ -78,6 +78,10 @@ export async function getParams(
         } catch (err) {
           res.decodedMetadata = []
         }
+
+        res.commentAllowed =
+          typeof res.commentAllowed === 'number' ? res.commentAllowed : 0
+
         return res as LNURLPayParams
       case 'channelRequest':
         return res as LNURLChannelParams
