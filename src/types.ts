@@ -23,6 +23,8 @@ export interface LNURLWithdrawParams {
   minWithdrawable: number
   maxWithdrawable: number
   defaultDescription: string
+  balanceCheck?: string
+  payLink?: string
 }
 
 export interface LNURLAuthParams {
@@ -40,14 +42,26 @@ export interface LNURLPayParams {
   maxSendable: number
   metadata: string
   decodedMetadata: string[][]
-  commentAllowed?: number
+  commentAllowed: number
+  payerData?: PayerDataSpec
 }
 
 export interface LNURLPayResult {
   pr: string
   successAction: LNURLPaySuccessAction | null
   disposable: boolean | null
-  routes: object[][]
+  routes: []
+}
+
+export interface PayerDataSpec {
+  name?: {mandatory: boolean}
+  pubkey?: {mandatory: boolean}
+  identifier?: {mandatory: boolean}
+  email?: {mandatory: boolean}
+  auth?: {
+    mandatory: boolean
+    k1: string
+  }
 }
 
 export interface LNURLPaySuccessAction {

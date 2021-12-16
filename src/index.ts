@@ -1,5 +1,3 @@
-/** @format */
-
 import bech32 from 'bech32'
 import fetch from 'cross-fetch'
 import qs from 'query-string'
@@ -23,11 +21,10 @@ export {
   LNURLPaySuccessAction
 } from './types'
 
-import {findlnurl, getDomain} from './helpers'
-export {findlnurl, randomHex, getDomain, decipherAES} from './helpers'
+export {decodelnurl, randomHex, getDomain, decipherAES} from './helpers'
 
 export async function getParams(
-  lnurl: any
+  lnurl: string
 ): Promise<
   | LNURLResponse
   | LNURLChannelParams
@@ -35,15 +32,15 @@ export async function getParams(
   | LNURLAuthParams
   | LNURLPayParams
 > {
-  lnurl = findlnurl(lnurl)
-
-  if (!lnurl) {
-    throw new Error('no usable lnurl string')
+  let url
+  try {
+    url = decodelnurl(lnurl)
+  } catch (err) {
+    return {
+      status: 'ERROR',
+      reason: `invalid lnurl '${lnurl}'`
+    } as LNURLResponse
   }
-
-  let url = Buffer.from(
-    bech32.fromWords(bech32.decode(lnurl, 20000).words)
-  ).toString()
 
   let spl = url.split('?')
   if (spl.length > 1 && qs.parse(spl[1]).tag === 'login') {
@@ -62,7 +59,11 @@ export async function getParams(
       throw new Error(await r.text())
     }
 
-    let res = await r.json()
+    try {
+      let res = await r.json()
+    } catch (err) {
+      throw new Error('(invalid JSON)')
+    }
 
     if (res.callback) {
       res.domain = getDomain(res.callback)
