@@ -1,26 +1,28 @@
 /** @format */
 
+import bech32 from 'bech32'
 import aesjs from 'aes-js'
 import Base64 from 'base64-js'
+import {Buffer} from 'safe-buffer'
 import {LNURLPaySuccessAction} from './types'
 
 export function decodelnurl(lnurl: string): string {
   lnurl = lnurl.trim()
 
-  if (lnurl.toLowercase().slice(0, 6) === 'lnurl1') {
+  if (lnurl.toLowerCase().slice(0, 6) === 'lnurl1') {
     return Buffer.from(
       bech32.fromWords(bech32.decode(lnurl, 20000).words)
     ).toString()
   } else if (
-    url.slice(0, 9) === 'lnurlc://' ||
-    url.slice(0, 9) === 'lnurlw://' ||
-    url.slice(0, 9) === 'lnurlp://' ||
-    url.slice(0, 10) === 'keyauth://'
+    lnurl.slice(0, 9) === 'lnurlc://' ||
+    lnurl.slice(0, 9) === 'lnurlw://' ||
+    lnurl.slice(0, 9) === 'lnurlp://' ||
+    lnurl.slice(0, 10) === 'keyauth://'
   ) {
-    let [_, post] = url.split('://')
+    let [_, post] = lnurl.split('://')
     let pre = post.match(/\.onion($|\W)/) ? 'http' : 'https'
     return pre + '://' + post
-  } else if (url.slice(0, 8) === 'https://') {
+  } else if (lnurl.slice(0, 8) === 'https://') {
     let bech32lnurl = findlnurl(lnurl)
     if (bech32lnurl) {
       return Buffer.from(
@@ -28,7 +30,7 @@ export function decodelnurl(lnurl: string): string {
       ).toString()
     }
 
-    return url
+    return lnurl
   }
 
   throw new Error(`invalid url ${lnurl}`)

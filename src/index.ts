@@ -1,7 +1,5 @@
-import bech32 from 'bech32'
 import fetch from 'cross-fetch'
 import qs from 'query-string'
-import {Buffer} from 'safe-buffer'
 
 import {
   LNURLResponse,
@@ -10,6 +8,7 @@ import {
   LNURLAuthParams,
   LNURLPayParams
 } from './types'
+import {decodelnurl, getDomain} from './helpers'
 
 export {
   LNURLResponse,
@@ -20,8 +19,7 @@ export {
   LNURLPayResult,
   LNURLPaySuccessAction
 } from './types'
-
-export {decodelnurl, randomHex, getDomain, decipherAES} from './helpers'
+export * from './helpers'
 
 export async function getParams(
   lnurl: string
@@ -59,8 +57,9 @@ export async function getParams(
       throw new Error(await r.text())
     }
 
+    let res
     try {
-      let res = await r.json()
+      res = await r.json()
     } catch (err) {
       throw new Error('(invalid JSON)')
     }
