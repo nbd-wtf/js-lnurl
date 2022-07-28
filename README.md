@@ -1,7 +1,7 @@
 js-lnurl
 ========
 
-Tools for adding [lnurl](https://github.com/fiatjaf/awesome-lnurl) support in JavaScript wallet interfaces.
+Tools for adding [lnurl](https://github.com/fiatjaf/lnurl-rfc) support in JavaScript wallet interfaces.
 
 ### Example
 
@@ -53,4 +53,13 @@ getParams("LNURL1...")
 import { findlnurl, decipherAES, getDomain }
 
 // see ./helpers.js
+```
+
+## How to build
+
+Do this before publishing to npm:
+
+```
+yarn
+make
 ```
