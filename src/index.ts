@@ -41,12 +41,20 @@ export async function getParams(
   }
 
   let spl = url.split('?')
-  if (spl.length > 1 && qs.parse(spl[1]).tag === 'login') {
-    return {
-      tag: 'login',
-      k1: qs.parse(spl[1]).k1 as string,
-      callback: url,
-      domain: getDomain(url)
+  if (spl.length > 1) {
+    let params = qs.parse(spl[1])
+    if (params.tag === 'login') {
+      return {
+        tag: 'login',
+        k1: params.k1 as string,
+        callback: url,
+        domain: getDomain(url)
+      }
+    } else if (params.tag === 'withdrawRequest' && params.k1 && params.callback) {
+      return {
+        ...params,
+        domain: getDomain(params.callback as string)
+      } as LNURLWithdrawParams
     }
   }
 
