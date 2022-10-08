@@ -100,7 +100,7 @@ export async function getParams(
 
         throw new Error('unknown tag: ' + res.tag)
     }
-  } catch (err) {
+  } catch (err: any) {
     return {
       status: 'ERROR',
       reason: `${url} returned error: ${err.message}`,
