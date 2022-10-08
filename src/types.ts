@@ -8,7 +8,7 @@ export interface LNURLResponse {
 }
 
 export interface LNURLChannelParams {
-  tag: string
+  tag: "channelRequest"
   callback: string
   domain: string
   k1: string
@@ -16,7 +16,7 @@ export interface LNURLChannelParams {
 }
 
 export interface LNURLWithdrawParams {
-  tag: string
+  tag: "withdrawRequest"
   k1: string
   callback: string
   domain: string
@@ -28,14 +28,14 @@ export interface LNURLWithdrawParams {
 }
 
 export interface LNURLAuthParams {
-  tag: string
+  tag: "login"
   k1: string
   callback: string
   domain: string
 }
 
 export interface LNURLPayParams {
-  tag: string
+  tag: "payRequest"
   callback: string
   domain: string
   minSendable: number
