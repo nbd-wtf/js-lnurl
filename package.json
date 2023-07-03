@@ -33,5 +33,6 @@
     "test": "jest --detect-open-handles",
     "coverage": "jest --coverage",
     "prepublishOnly": "yarn && make"
-  }
+  },
+  "sideEffects": false
 }

@@ -8,7 +8,8 @@ import {
   LNURLAuthParams,
   LNURLPayParams
 } from './types'
-import {decodelnurl, getDomain} from './helpers'
+import {decodelnurl} from './helpers/decodelnurl'
+import {getDomain} from './helpers/getDomain'
 
 export {
   LNURLResponse,
@@ -19,7 +20,6 @@ export {
   LNURLPayResult,
   LNURLPaySuccessAction
 } from './types'
-export * from './helpers'
 
 export async function getParams(
   lnurl: string
@@ -50,7 +50,11 @@ export async function getParams(
         callback: url,
         domain: getDomain(url)
       }
-    } else if (params.tag === 'withdrawRequest' && params.k1 && params.callback) {
+    } else if (
+      params.tag === 'withdrawRequest' &&
+      params.k1 &&
+      params.callback
+    ) {
       return {
         ...params,
         domain: getDomain(params.callback as string)

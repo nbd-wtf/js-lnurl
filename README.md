@@ -52,9 +52,19 @@ getParams("LNURL1...")
 ### Other included helpers
 
 ```js
-import { findlnurl, decipherAES, getDomain }
+import {
+  findlnurl,
+  decodelnurl,
+  decipherAES,
+  getDomain
+} from 'js-lnurl/lib/helpers'
+// or
+import {findlnurl} from 'js-lnurl/lib/helpers/findlnurl'
+import {decodelnurl} from 'js-lnurl/lib/helpers/decodelnurl'
+import {decipherAES} from 'js-lnurl/lib/helpers/decipherAES'
+import {getDomain} from 'js-lnurl/lib/helpers/getDomain'
 
-// see ./helpers.js
+// see src/helpers/*.ts
 ```
 
 ## How to build
