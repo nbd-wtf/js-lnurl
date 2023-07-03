@@ -48,7 +48,8 @@ export async function getParams(
         tag: 'login',
         k1: params.k1 as string,
         callback: url,
-        domain: getDomain(url)
+        domain: getDomain(url),
+        action: params.action as LNURLAuthParams['action']
       }
     } else if (
       params.tag === 'withdrawRequest' &&

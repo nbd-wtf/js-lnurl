@@ -27,3 +27,15 @@ test('Base auth request', async () => {
   // Protocol Scheme URL
   testParams(`https://example.com?tag=login&k1=hex_coin&action=login`, expectedResults)
 });
+
+test('Auth request with action', async () => {
+  const expectedResults = {
+    tag: "login",
+    k1: "hex_coin",
+    domain: "example.com"
+  }
+
+  for (const action of ['register', 'login', 'link', 'auth']) {
+    testParams(`https://example.com?tag=login&k1=hex_coin&action=${action}`, { ...expectedResults, action })
+  }
+})
