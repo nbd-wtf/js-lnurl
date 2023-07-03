@@ -70,6 +70,9 @@ export async function testParams(
     case "login":
       requiredField(response.tag)
       requiredField(response.k1)
+
+      // Optional fields
+      expect(response.action).toBe(expectedValue.action)
       break;
   }
 
